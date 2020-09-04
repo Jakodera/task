@@ -1,30 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-// import { Dropdown } from "@fluentui/react"; 
 class Albums extends React.Component {
   constructor() {
     super()
     this.state = {
       albums: [],
+      Loaded:false,
     };
   }
 
-//   componentDidMount(){
-//     axios
-//     .get('https://jsonplaceholder.typicode.com/albums')
-//     .then(res =>{this.setState({albums: res.album,})})
-//     .then(albums => { this.setState({ Loaded: true, albums })})
-//     error => { this.setState({ Loaded: true, error })}
-// }
-
-  componentDidMount() {
-    // axios
-      fetch('https://jsonplaceholder.typicode.com/albums')
-      .then(response => response.json())
-      .then(albums => { this.setState({ Loaded: true, albums }) },
-      error => { this.setState({ Loaded: true, error }); })
+  async componentDidMount() {
+    const {data:albums}=await axios.get('https://jsonplaceholder.typicode.com/albums');
+    this.setState({albums,Loaded:true});
   }
-
   render() {
     const { error, Loaded, albums } = this.state;
     if (error) {
@@ -36,8 +24,6 @@ class Albums extends React.Component {
         <ul>
           {albums.map(album => (<li key={album.id}>{album.title}</li>))} 
         </ul>
-       
-
       );
     }
   }

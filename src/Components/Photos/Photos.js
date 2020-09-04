@@ -15,7 +15,7 @@ class Photos extends Component {
     };
   };
 
-  receivedData() {
+  fetchData() {
     axios
         .get(`https://jsonplaceholder.typicode.com/albums/1/photos?albumId=1`)
         .then(res => {
@@ -31,7 +31,7 @@ class Photos extends Component {
             })
         });
 }
-handlePageClick = (e) => {
+handlePaginationClick = (e) => {
     const selectedPage = e.selected;
     const offset = selectedPage * this.state.perPage;
 
@@ -39,13 +39,13 @@ handlePageClick = (e) => {
         currentPage: selectedPage,
         offset: offset
     }, () => {
-        this.receivedData()
+        this.fetchData()
     });
 
 };
 
 componentDidMount() {
-    this.receivedData()
+    this.fetchData()
 }
 render() {
     return (
@@ -56,12 +56,12 @@ render() {
             <ReactPaginate
                 previousLabel={"prev"}
                 nextLabel={"next"}
-                breakLabel={"..."}
+                breakLabel={"{...}"}
                 breakClassName={"break-me"}
                 pageCount={this.state.pageCount}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
-                onPageChange={this.handlePageClick}
+                onPageChange={this.handlePaginationClick}
                 containerClassName={"pagination"}
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}/>

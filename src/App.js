@@ -8,8 +8,7 @@ import Album from './Components/Albums/Albums';
 import Photos from './Components/Photos/Photos'
 import axios from 'axios';
 import { Stack } from "@fluentui/react"; 
-// import ReactTable from "react-table";
-// import ReactPaginate from 'react-paginate'
+
 class App extends Component {
 
   state = {

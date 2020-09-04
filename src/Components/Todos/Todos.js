@@ -1,7 +1,6 @@
 import React, {Component}from 'react';
 import TodoItem from './TodoItem';
 import PropTypes from 'prop-types';
-import { DetailsList } from '@fluentui/react';
 
 class Todos extends Component {
     markComplete = ()=>{}

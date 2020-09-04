@@ -1,18 +1,25 @@
 import React from 'react';
-import { DetailsList } from '@fluentui/react';
+import axios from 'axios';
 // import { Dropdown } from "@fluentui/react"; 
 class Albums extends React.Component {
   constructor() {
     super()
     this.state = {
       albums: [],
-      perPage: 5,
-      currentPage: 0,
     };
   }
 
+//   componentDidMount(){
+//     axios
+//     .get('https://jsonplaceholder.typicode.com/albums')
+//     .then(res =>{this.setState({albums: res.album,})})
+//     .then(albums => { this.setState({ Loaded: true, albums })})
+//     error => { this.setState({ Loaded: true, error })}
+// }
+
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/albums")
+    // axios
+      fetch('https://jsonplaceholder.typicode.com/albums')
       .then(response => response.json())
       .then(albums => { this.setState({ Loaded: true, albums }) },
       error => { this.setState({ Loaded: true, error }); })

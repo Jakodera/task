@@ -19,7 +19,6 @@ class Photos extends Component {
     axios
         .get(`https://jsonplaceholder.typicode.com/albums/1/photos?albumId=1`)
         .then(res => {
-
             const data = res.data;
             const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
             const postData = slice.map(pd => <React.Fragment>
@@ -28,7 +27,6 @@ class Photos extends Component {
             </React.Fragment>)
             this.setState({
                 pageCount: Math.ceil(data.length / this.state.perPage),
-               
                 postData
             })
         });

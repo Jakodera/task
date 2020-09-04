@@ -1,6 +1,6 @@
 import React from 'react';
+import { DetailsList } from '@fluentui/react';
 // import { Dropdown } from "@fluentui/react"; 
-
 class Albums extends React.Component {
   constructor() {
     super()
@@ -26,11 +26,11 @@ class Albums extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        // <Dropdown onChange ={albums.map(album => (<li key={album.id}>{album.title}</li>))} >
         <ul>
           {albums.map(album => (<li key={album.id}>{album.title}</li>))} 
         </ul>
-        // </Dropdown>
+       
+
       );
     }
   }

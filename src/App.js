@@ -13,7 +13,8 @@ import _ from 'lodash';
 class App extends Component {
 
   state = {
-    todos: []
+    todos: [],
+     
   };
 
   componentDidMount(){
@@ -21,14 +22,10 @@ class App extends Component {
     .get('https://jsonplaceholder.typicode.com/todos')
     .then(res =>{
 
-      const unsortedTodos = res.data;
-      _.orderBy(unsortedTodos, [unsortedTodos.id], ['desc'])
-      
-      // const sortedTodos =unsortedTodos.sort((a,b) =>a.id - b.id);
-      this.setState(
+       this.setState(
       {
-        todos:unsortedTodos,
-        // todos: res.data,
+         
+        todos: res.data,
       })});
   }
 
@@ -60,6 +57,9 @@ class App extends Component {
     }
 
   render () {
+    const {todos,time}=this.state;
+    const sortedTodos=_.orderBy(todos,['id'],['desc'])
+    
     return(
       <Router>
       <div className="App">
@@ -68,8 +68,9 @@ class App extends Component {
       <Header />
       <Route exact path="/" render={props =>(
         <React.Fragment>
+          
             <AddTodo addTodo={this.addTodo}/>
-            <Todos todos ={this.state.todos} markComplete={this.markComplete} delTodo = {this.delTodo}/>
+            <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/>
         </React.Fragment>
       )} />
         <Route path= "/album" component= {Album}/>

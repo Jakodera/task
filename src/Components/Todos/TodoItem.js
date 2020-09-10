@@ -28,8 +28,10 @@ export class TodoItem extends Component {
                 />{" "}
 
                     {title}
+        
                 <IconButton iconProps={{ iconName: 'trash' }} className="clearButton" onClick={this.props.delTodo.bind(this, id)} /> 
                 </Stack>
+                 
                 </Stack>
                 </p>
             </div>

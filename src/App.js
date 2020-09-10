@@ -46,18 +46,22 @@ class App extends Component {
       .then(res =>this.setState({ todos: [...this.state.todos.filter(todo =>todo.id !== id)]}));
     }
 
-    addTodo = (title) =>{
+    addTodo = (title,time) =>{
        axios.post('https://jsonplaceholder.typicode.com/todos', {
          title,
+         time,
          completed: false
        })
        .then(res => this.setState({
         todos: [...this.state.todos, res.data]
-      }));
+      })
+      );
+       
+      
     }
 
   render () {
-    const {todos,time}=this.state;
+    const {todos }=this.state;
     const sortedTodos=_.orderBy(todos,['id'],['desc'])
     
     return(

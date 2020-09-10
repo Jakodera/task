@@ -14,7 +14,7 @@ export class TodoItem extends Component {
       };
 
     render() {
-        const {id, title, completed} = this.props.todo;
+        const {id, title, completed,time} = this.props.todo;
         return (
         <Stack>
             <div style= {this.getStyle()}>
@@ -30,7 +30,7 @@ export class TodoItem extends Component {
                     {title}
         
                 <IconButton iconProps={{ iconName: 'trash' }} className="clearButton" onClick={this.props.delTodo.bind(this, id)} /> 
-                </Stack>
+               {" "} {time|| new Date().toLocaleString()} </Stack>
                  
                 </Stack>
                 </p>

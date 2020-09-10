@@ -7,12 +7,13 @@ export class AddTodo extends Component {
   state = {
     title: '',
     id: '',
+    time:new Date().toLocaleString(),
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.addTodo(this.state.title);
-    this.setState({ title: '' });
+    this.props.addTodo(this.state.title,this.state.time);
+    this.setState({ title: '',time:new Date().toLocaleString() });
   }
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });

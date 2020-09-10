@@ -7,14 +7,23 @@ import AddTodo from './Components/Todos/AddTodo';
 import Album from './Components/Albums/Albums';
 import Photos from './Components/Photos/Photos'
 import axios from 'axios';
-import { Stack } from "@fluentui/react"; 
+import { Stack,} from "@fluentui/react"; 
 import _ from 'lodash';
+import Pagination from "react-js-pagination";
+
 
 class App extends Component {
 
   state = {
     todos: [],
+    activePage: 10
+
   };
+
+  handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({activePage: pageNumber});
+  }
   
 
   componentDidMount(){
@@ -75,6 +84,15 @@ class App extends Component {
             <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/>
         </React.Fragment>
       )} />
+
+       <Pagination
+          paginationSize= {15}
+          activePage={this.state.activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={450}
+          pageRangeDisplayed={5}
+          onChange={this.handlePageChange.bind(this)}
+        />
         <Route path= "/album" component= {Album}/>
         <Route path = "/photos" component ={Photos}/>
     </div>

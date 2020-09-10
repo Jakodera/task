@@ -14,8 +14,8 @@ class App extends Component {
 
   state = {
     todos: [],
-     
   };
+  
 
   componentDidMount(){
     axios
@@ -24,7 +24,6 @@ class App extends Component {
 
        this.setState(
       {
-         
         todos: res.data,
       })});
   }
@@ -72,7 +71,6 @@ class App extends Component {
       <Header />
       <Route exact path="/" render={props =>(
         <React.Fragment>
-          
             <AddTodo addTodo={this.addTodo}/>
             <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/>
         </React.Fragment>

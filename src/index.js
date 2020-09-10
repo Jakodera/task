@@ -13,7 +13,6 @@ ReactDOM.render(
     <App >
       <RestController/>
     </App>
-  
     </Fabric>
   </React.StrictMode>,
   document.getElementById('root')

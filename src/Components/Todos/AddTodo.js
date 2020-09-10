@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Stack, PrimaryButton } from '@fluentui/react'; 
+import { Stack, PrimaryButton, TextField } from '@fluentui/react'; 
+// import Todos from './Todos';
 
 export class AddTodo extends Component {
   state = {
-    title: ''
+    title: '',
+    id: '',
   }
 
   onSubmit = (e) => {
@@ -19,11 +21,10 @@ export class AddTodo extends Component {
     return (
       <Stack horizontal > 
       <Stack.Item grow> 
-      <form onSubmit={this.onSubmit} style={{ display: 'flex' }}>
-        <input 
+      <form onSubmit={this.onSubmit} style={{ display: 'flex'}}>
+        <TextField 
           type="text" 
           name="title" 
-          style={{ flex: '10', padding: '5px' }}
           placeholder="Add Todo ..." 
           value={this.state.title}
           onChange={this.onChange}

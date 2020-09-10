@@ -8,6 +8,7 @@ import Album from './Components/Albums/Albums';
 import Photos from './Components/Photos/Photos'
 import axios from 'axios';
 import { Stack } from "@fluentui/react"; 
+import _ from 'lodash';
 
 class App extends Component {
 
@@ -19,9 +20,15 @@ class App extends Component {
     axios
     .get('https://jsonplaceholder.typicode.com/todos')
     .then(res =>{
+
+      const unsortedTodos = res.data;
+      _.orderBy(unsortedTodos, [unsortedTodos.id], ['desc'])
+      
+      // const sortedTodos =unsortedTodos.sort((a,b) =>a.id - b.id);
       this.setState(
       {
-        todos: res.data,
+        todos:unsortedTodos,
+        // todos: res.data,
       })});
   }
 
@@ -51,7 +58,6 @@ class App extends Component {
         todos: [...this.state.todos, res.data]
       }));
     }
-
 
   render () {
     return(

@@ -26,6 +26,7 @@ export class TodoItem extends Component {
                  defaultChecked={completed}
                  onChange={this.props.markComplete.bind(this, id)}
                 />{" "}
+
                     {title}
                 <IconButton iconProps={{ iconName: 'trash' }} className="clearButton" onClick={this.props.delTodo.bind(this, id)} /> 
                 </Stack>

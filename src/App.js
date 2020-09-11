@@ -5,7 +5,7 @@ import Todos from './Components/Todos/Todos';
 import Header from './Layouts/Header';
 import AddTodo from './Components/Todos/AddTodo';
 import Album from './Components/Albums/Albums';
-import Photos from './Components/Photos/Photos'
+import Photos from './Components/Photos/Photos';
 import axios from 'axios';
 import { Stack,} from "@fluentui/react"; 
 import _ from 'lodash';
@@ -15,20 +15,22 @@ import Pagination from "react-js-pagination";
 class App extends Component {
 
   state = {
+    selectedAlbumId: false,
     todos: [],
-    activePage: 10
+    offset: 0,
+    perPage: 5,
+    currentPage: 0,
 
   };
 
   handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
     this.setState({activePage: pageNumber});
   }
   
 
   componentDidMount(){
     axios
-    .get('https://jsonplaceholder.typicode.com/todos')
+    .get('https://jsonplaceholder.typicode.com/todos?_limit=10')
     .then(res =>{
 
        this.setState(
@@ -82,17 +84,15 @@ class App extends Component {
         <React.Fragment>
             <AddTodo addTodo={this.addTodo}/>
             <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/>
+            <Pagination
+               activePage={this.state.activePage}
+               itemsCountPerPage={10}
+               totalItemsCount={450}
+               pageRangeDisplayed={5}
+               onChange={this.handlePageChange.bind(this)}
+        />
         </React.Fragment>
       )} />
-
-       <Pagination
-          paginationSize= {15}
-          activePage={this.state.activePage}
-          itemsCountPerPage={10}
-          totalItemsCount={450}
-          pageRangeDisplayed={5}
-          onChange={this.handlePageChange.bind(this)}
-        />
         <Route path= "/album" component= {Album}/>
         <Route path = "/photos" component ={Photos}/>
     </div>

@@ -6,7 +6,7 @@ import { Stack } from "@fluentui/react";
 
 class Photos extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       offset: 0,
       data: [],
@@ -15,22 +15,38 @@ class Photos extends Component {
     };
   };
 
-  fetchData() {
-    axios
-        .get(`https://jsonplaceholder.typicode.com/albums/1/photos?albumId=1`)
-        .then(res => {
-            const data = res.data;
+  async componentDidMount() {
+    const {data}=await
+     axios.get('https://jsonplaceholder.typicode.com/albums/1/photos?albumId=1');
+                //  const data = res.data;
             const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
-            const postData = slice.map(pd => <React.Fragment>
+            const postData = slice.map(pd => 
+            <React.Fragment>
                 <p>{pd.title}</p>
                 <img src={pd.thumbnailUrl} alt=""/>
             </React.Fragment>)
-            this.setState({
-                pageCount: Math.ceil(data.length / this.state.perPage),
-                postData
-            })
-        });
-}
+    this.setState({
+        pageCount: Math.ceil(data.length /this.state.perPage),
+        postData
+    });
+  }
+
+//   fetchData() {
+//     axios
+//         .get(`https://jsonplaceholder.typicode.com/albums/1/photos?albumId=1`)
+//         .then(res => {
+//             const data = res.data;
+//             const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+//             const postData = slice.map(pd => <React.Fragment>
+//                 <p>{pd.title}</p>
+//                 <img src={pd.thumbnailUrl} alt=""/>
+//             </React.Fragment>)
+//             this.setState({
+//                 pageCount: Math.ceil(data.length / this.state.perPage),
+//                 postData
+//             })
+//         });
+// }
 handlePaginationClick = (e) => {
     const selectedPage = e.selected;
     const offset = selectedPage * this.state.perPage;
@@ -39,14 +55,14 @@ handlePaginationClick = (e) => {
         currentPage: selectedPage,
         offset: offset
     }, () => {
-        this.fetchData()
+        this.componentDidMount()
     });
 
 };
 
-componentDidMount() {
-    this.fetchData()
-}
+// componentDidMount() {
+//     this.fetchData()
+// }
 render() {
     return (
         <div>

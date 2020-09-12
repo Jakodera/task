@@ -9,7 +9,7 @@ import Photos from './Components/Photos/Photos';
 import axios from 'axios';
 import { Stack,} from "@fluentui/react"; 
 import _ from 'lodash';
-import Pagination from "react-js-pagination";
+import ReactPaginate from 'react-paginate'
 
 
 class App extends Component {
@@ -26,18 +26,23 @@ class App extends Component {
   handlePageChange(pageNumber) {
     this.setState({activePage: pageNumber});
   }
+
+  async componentDidMount() {
+    const {data:todos}=await axios.get('https://jsonplaceholder.typicode.com/todos');
+    this.setState({todos});
+  }
   
 
-  componentDidMount(){
-    axios
-    .get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-    .then(res =>{
+  // componentDidMount(){
+  //   axios
+  //   .get('https://jsonplaceholder.typicode.com/todos')
+  //   .then(res =>{
 
-       this.setState(
-      {
-        todos: res.data,
-      })});
-  }
+  //      this.setState(
+  //     {
+  //       todos: res.data,
+  //     })});
+  // }
 
     // Toggle Complete
     markComplete = (id) => {
@@ -69,7 +74,16 @@ class App extends Component {
        
       
     }
-
+    handlePaginationClick = (e) => {
+      const selectedPage = e.selected;
+      const offset = selectedPage * this.state.perPage;
+  
+      this.setState({
+          currentPage: selectedPage,
+          offset: offset
+      });
+  
+  };
   render () {
     const {todos }=this.state;
     const sortedTodos=_.orderBy(todos,['id'],['desc'])
@@ -84,13 +98,25 @@ class App extends Component {
         <React.Fragment>
             <AddTodo addTodo={this.addTodo}/>
             <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/>
-            <Pagination
+            <ReactPaginate
+                previousLabel={"prev"}
+                nextLabel={"next"}
+                breakLabel={"{...}"}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePaginationClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}/>
+            {/* <Pagination
                activePage={this.state.activePage}
                itemsCountPerPage={10}
-               totalItemsCount={450}
+               totalItemsCount={500}
                pageRangeDisplayed={5}
                onChange={this.handlePageChange.bind(this)}
-        />
+        /> */}
         </React.Fragment>
       )} />
         <Route path= "/album" component= {Album}/>

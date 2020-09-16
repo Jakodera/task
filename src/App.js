@@ -1,16 +1,17 @@
 import React, {Component, }from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
-import Todos from './Components/Todos/Todos';
+// import Todos from './Components/Todos/Todos';
 import Header from './Layouts/Header';
-import AddTodo from './Components/Todos/AddTodo';
+// import AddTodo from './Components/Todos/AddTodo';
+import AddTodo from './Components/Todos/Pages/AddTodo';
+import Todos from './Components/Todos/Pages/Todos'
 import Album from './Components/PhotoAlbum/Albums';
 import Photos from './Components/PhotoAlbum/Photos';
-import axios from 'axios';
+// import axios from 'axios';
 import { Stack,} from "@fluentui/react"; 
 import _ from 'lodash';
 import ReactPaginate from 'react-paginate'
-
 
 class App extends Component {
 
@@ -27,12 +28,6 @@ class App extends Component {
     this.setState({activePage: pageNumber});
   }
 
-  async componentDidMount() {
-    const {data:todos}=await axios.get('https://jsonplaceholder.typicode.com/todos');
-    this.setState({todos});
-  }
-  
-
   // componentDidMount(){
   //   axios
   //   .get('https://jsonplaceholder.typicode.com/todos')
@@ -44,43 +39,44 @@ class App extends Component {
   //     })});
   // }
 
-    // Toggle Complete
-    markComplete = (id) => {
-      this.setState({
-        todos: this.state.todos.map(todo => {
-          if (todo.id === id) {
-            todo.completed = !todo.completed;
-          }
-          return todo;
-        })
-      });
-    };
+    // // Toggle Complete
+    // markComplete = (id) => {
+    //   this.setState({
+    //     todos: this.state.todos.map(todo => {
+    //       if (todo.id === id) {
+    //         todo.completed = !todo.completed;
+    //       }
+    //       return todo;
+    //     })
+    //   });
+    // };
 
-    delTodo = (id)=> {
-      axios.delete('https://jsonplaceholder.typicode.com/todos/ $id')
-      .then(res =>this.setState({ todos: [...this.state.todos.filter(todo =>todo.id !== id)]}));
-    }
 
-    addTodo = (title,time) =>{
-       axios.post('https://jsonplaceholder.typicode.com/todos', {
-         title,
-         time,
-         completed: false
-       })
-       .then(res => this.setState({
-        todos: [...this.state.todos, res.data]
-      })
-      );
+    // delTodo = (id)=> {
+    //   axios.delete('https://jsonplaceholder.typicode.com/todos/ $id')
+    //   .then(res =>this.setState({ todos: [...this.state.todos.filter(todo =>todo.id !== id)]}));
+    // }
+
+    // addTodo = (title,time) =>{
+    //    axios.post('https://jsonplaceholder.typicode.com/todos', {
+    //      title,
+    //      time,
+    //      completed: false
+    //    })
+    //    .then(res => this.setState({
+    //     todos: [...this.state.todos, res.data]
+    //   })
+    //   );
        
       
-    }
+    // }
     handlePaginationClick = (e) => {
       const selectedPage = e.selected;
       const offset = selectedPage * this.state.perPage;
   
       this.setState({
           currentPage: selectedPage,
-          offset: offset
+          offset: offset 
       });
   
   };
@@ -96,8 +92,10 @@ class App extends Component {
       <Header />
       <Route exact path="/" render={props =>(
         <React.Fragment>
-            <AddTodo addTodo={this.addTodo}/>
-            <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/>
+          <AddTodo />
+          <Todos todos={sortedTodos} />
+            {/* <AddTodo addTodo={this.addTodo}/> */}
+            {/* <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/> */}
             <ReactPaginate
                 previousLabel={"prev"}
                 nextLabel={"next"}
@@ -110,15 +108,9 @@ class App extends Component {
                 containerClassName={"pagination"}
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}/>
-            {/* <Pagination
-               activePage={this.state.activePage}
-               itemsCountPerPage={10}
-               totalItemsCount={500}
-               pageRangeDisplayed={5}
-               onChange={this.handlePageChange.bind(this)}
-        /> */}
         </React.Fragment>
-      )} />
+      )}/>
+
         <Route path= "/album" component= {Album}/>
         <Route path = "/photos" component ={Photos}/>
     </div>

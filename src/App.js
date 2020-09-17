@@ -1,17 +1,19 @@
+//         React
 import React, {Component, }from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
+import ReactPaginate from 'react-paginate'
 import './App.css';
-// import Todos from './Components/Todos/Todos';
-import Header from './Layouts/Header';
-// import AddTodo from './Components/Todos/AddTodo';
+//      Todos
 import AddTodo from './Components/Todos/Pages/AddTodo';
 import Todos from './Components/Todos/Pages/Todos'
+import Header from './Layouts/Header';
+//     PhotoAlbum 
 import Album from './Components/PhotoAlbum/Albums';
 import Photos from './Components/PhotoAlbum/Photos';
-// import axios from 'axios';
+//      Others
 import { Stack,} from "@fluentui/react"; 
 import _ from 'lodash';
-import ReactPaginate from 'react-paginate'
+
 
 class App extends Component {
 
@@ -21,6 +23,7 @@ class App extends Component {
     offset: 0,
     perPage: 5,
     currentPage: 0,
+    time: new Date().toLocaleString(),
 
   };
 
@@ -93,7 +96,7 @@ class App extends Component {
       <Route exact path="/" render={props =>(
         <React.Fragment>
           <AddTodo />
-          <Todos todos={sortedTodos} />
+          <Todos todos ={sortedTodos} />
             {/* <AddTodo addTodo={this.addTodo}/> */}
             {/* <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/> */}
             <ReactPaginate

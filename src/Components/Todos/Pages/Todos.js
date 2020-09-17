@@ -1,27 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux';
 import { FETCH_TODOS_REQUEST, MARK_TODO_AS_COMPLETED_REQUEST, REMOVE_ITEM_REQUEST } from '../Actions/Actions'
 import { THEME_BG_COLOR, THEME_COMPLETED_FONT_COLOR} from '../Pages/Styles';
 import PropTypes from 'prop-types';
-import { IconButton } from '@fluentui/react';
+import { IconButton, Dialog, DialogFooter, DefaultButton} from '@fluentui/react';
 
-const TodosContainer = styled.div`
-    cursor: pointer;
-    box-sizing: border-box;
-    width: 90vw;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-`;
-
-const TodoContainer = styled.div`
-    margin-top: 1rem;
-    display: flex;
-`;
 
 const Todo = styled.div`
     display: flex;
@@ -63,30 +47,46 @@ class Todos extends React.Component {
        this.props.dispatch({type: FETCH_TODOS_REQUEST})
     };
 
+
     mark = (id) => {
         this.props.dispatch({type: MARK_TODO_AS_COMPLETED_REQUEST, id});
     };
 
+
     removeItem = (id) => {
+        const [openDeleteModal, setOpenModal] = useState(true); 
+        setOpenModal(true);   
         this.props.dispatch({type: REMOVE_ITEM_REQUEST, id});
     };
 
-    generateTodos = () => {
+
+    generateTodos = (time) => {
         const dataItems = this.props.todosList;
         const todosItems = dataItems.map((todo, index) => 
-            <TodoContainer key={ index + "todo-container"}>
+            <div key={ index + "todo-container"} style={{marginTop: 2, display: "flex"}}>
+
                 <Todo tabIndex="0" key={ index - "todo"} onClick={ e => { e.preventDefault(); this.mark(todo.id) }}>
+
                     <TodoNumber>{index +1 }.</TodoNumber>
+
                     <TodoTitle color={getFontStyles(todo.completed)}>{todo.title}</TodoTitle>
+                    {time|| new Date().toLocaleString()}
+
                     { todo.completed }
+
                 </Todo>
-                { todo.completed ? <TodoRemover onClick={ e => this.removeItem(todo.id) } tabIndex="0"><IconButton iconProps={{iconName: 'trash'}}></IconButton></TodoRemover> : null }
-            </TodoContainer>
+                { todo.completed ? <TodoRemover onClick={ e => this.removeItem(todo.id) } tabIndex="0">
+                    <IconButton iconProps={{iconName: 'trash'}} onClick={() => {  }}/> 
+
+                    </TodoRemover> : null }
+            </div>
+
+            
         );
         return todosItems;
     }
 
-    RenderTodos = () => {
+    RenderTodos = (time) => {
         if (this.props.todosLoading) {
             return <InformationContainer>Loading</InformationContainer>
         } else {
@@ -96,9 +96,10 @@ class Todos extends React.Component {
 
     render() {
         return(
-            <TodosContainer>
-                { this.RenderTodos() }
-            </TodosContainer>
+            <div>
+                { this.RenderTodos()}
+                
+            </div>
         );
     }
 }

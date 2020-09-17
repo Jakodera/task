@@ -1,43 +1,8 @@
 import React from 'react';
-import styled from 'styled-components'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SET_NEW_TODO_TITLE_REQUEST, ADD_TODO_REQUEST } from '../Actions/Actions';
-import { THEME_BG_COLOR, THEME_COMPLETED_FONT_COLOR } from '../Pages/Styles';
-
-const AddTodoContainer = styled.header`
-    display: flex;
-    background-color: ${THEME_BG_COLOR};
-    justify-content: center;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-`;
-
-const AddTodoUI = styled.div`
-    display: flex;
-    width: 90vw;
-`;
-
-const AddTodoInput = styled.input`
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid;
-    padding: .5rem;
-    flex-basis: 100%;
-`;
-
-const AddTodoButton = styled.button`
-    cursor: pointer;
-    margin-left: 1rem;
-    white-space: nowrap;
-    background-color: ${THEME_COMPLETED_FONT_COLOR};
-    border: none;
-    border-radius: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    font-weight: bolder;
-`;
-
+import { PrimaryButton, Stack, TextField } from '@fluentui/react';
 
 
 class AddTodo extends React.Component {
@@ -48,25 +13,23 @@ class AddTodo extends React.Component {
 
     render() {
         return (
-            <AddTodoContainer>
-                <AddTodoUI >
-                    <AddTodoInput onChange={ e => this.setNewTodoTitle(e.target.value) } value={ this.props.newTodoTitle } type="text" placeholder="Add Todo" />
-                    <AddTodoButton onClick={ e => this.addTodo()  } 
-                        title>
-                    Add Todo</AddTodoButton>
-                </AddTodoUI>
-            </AddTodoContainer>
+            <div>
+                <Stack >
+                    <TextField onChange={ e => this.setNewTodoTitle(e.target.value) } value={ this.props.newTodoTitle } type="text" placeholder="Add a new Todo Item" />
+                    <PrimaryButton onClick={ e => this.addTodo() } title>
+                    Add
+                    </PrimaryButton>
+                </Stack>
+            </div>
         );
     }
 }
 
 AddTodo.propTypes = {
-    canAddTodo: PropTypes.bool.isRequired,
     newTodoTitle: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
-    canAddTodo: state.todosReducer.canAddTodo,
     newTodoTitle: state.todosReducer.newTodoTitle
 });
 

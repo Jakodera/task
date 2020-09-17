@@ -1,19 +1,9 @@
 import axios from 'axios';
 
-const callTodosApi = async () => {
+const getJsonplaceholderData = async () => {
 
-        // addTodo = (title,time) =>{
-    //    axios.post('https://jsonplaceholder.typicode.com/todos', {
-    //      title,
-    //      time,
-    //      completed: false
-    //    })
-    //    .then(res => this.setState({
-    //     todos: [...this.state.todos, res.data]
-    //   })
-    //   );
     let res, err;
-    await axios.get('https://jsonplaceholder.typicode.com/todos')
+    await axios.get('https://jsonplaceholder.typicode.com/todos/?_limit=10')
     .then((response) => {
         res = response;
     })
@@ -24,4 +14,4 @@ const callTodosApi = async () => {
     return { res, err };
 };
 
-export default callTodosApi;
+export default getJsonplaceholderData;

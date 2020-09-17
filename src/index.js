@@ -8,7 +8,6 @@ import { createStore, applyMiddleware, compose} from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './Components/Todos/Reducers/Reducers';
 import { Fabric, initializeIcons } from "@fluentui/react"; 
-// import RestController from './Components/PhotoAlbum/Photos'
 
 initializeIcons();
 
@@ -18,7 +17,6 @@ const store = createStore(
   reducer,
   compose(
   applyMiddleware(sagaMiddleware),
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ))
 sagaMiddleware.run(RootSaga)
 

@@ -5,9 +5,8 @@ const initialState = {
   todosList: null,
   callApiFailed: false,
   todosLoading: true,
-  canAddTodo: false,
   newTodoTitle: '',
-  newId: 10
+
 };
   
 export default function todosReducer(state = initialState, action) {
@@ -18,7 +17,6 @@ export default function todosReducer(state = initialState, action) {
           callApiFailed: false,
           todosList: action.data,
           todosLoading: false,
-          canAddTodo: action.data.length < 10 
         }
       case FETCH_TODOS_FAILED:
         return {
@@ -45,7 +43,6 @@ export default function todosReducer(state = initialState, action) {
           return {
             ...state,
             todosList: state.todosList.filter(todo => todo.id !== action.id),
-            canAddTodo: true 
           }
         case SET_NEW_TODO_TITLE_SUCCEEDED:
           return {
@@ -65,7 +62,6 @@ export default function todosReducer(state = initialState, action) {
               }
             ],
             newId: state.newId + 1,
-            canAddTodo: state.todosList.length + 1 < 10 
           }
       default: 
         return state;

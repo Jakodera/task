@@ -96,8 +96,8 @@ class App extends Component {
       <Route exact path="/" render={props =>(
         <React.Fragment>
           <AddTodo />
-          <Todos todo />
-          {sortedTodos}
+          <Todos todo= {sortedTodos}/>
+          
             {/* <AddTodo addTodo={this.addTodo}/> */}
             {/* <Todos todos ={sortedTodos} markComplete={this.markComplete} delTodo = {this.delTodo}/> */}
             <ReactPaginate

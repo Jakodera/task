@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FETCH_TODOS_REQUEST, MARK_TODO_AS_COMPLETED_REQUEST, REMOVE_ITEM_REQUEST } from '../Actions/Actions'
 import { THEME_BG_COLOR, THEME_COMPLETED_FONT_COLOR} from '../Pages/Styles';
 import PropTypes from 'prop-types';
-import { IconButton} from '@fluentui/react';
+import { IconButton, Dialog, DialogType, DialogFooter, PrimaryButton, DefaultButton} from '@fluentui/react';
 
 
 const Todo = styled.div`
@@ -43,6 +43,17 @@ const InformationContainer = styled.h1`
 
 class Todos extends React.Component {
 
+    constructor() { 
+        super() 
+        this.state = { 
+          isOpen: false, 
+        } 
+      }
+
+      open = () => this.setState({isOpen: true }) 
+
+      close = () => this.setState({isOpen: false}) 
+
 
     componentDidMount() {
        this.props.dispatch({type: FETCH_TODOS_REQUEST})
@@ -76,13 +87,32 @@ class Todos extends React.Component {
                 { todo.completed ? <TodoRemover>
                     <IconButton 
                         iconProps={{iconName: 'trash', style: {color: "red"}}} 
-                        onClick={() => {
-                            window.confirm("Are you sure you want to DELETE this item?")  
-                            this.removeItem(todo.id) }}/> 
-                    </TodoRemover> : null }
-            </div>
+                        onClick={ this.open}
+                            // window.confirm("Are you sure you want to DELETE this item?")  
+                            // this.removeItem(todo.id)
+                             /> 
 
-            
+
+                <Dialog
+                    isOpen={this.state.isOpen}
+                    dialogContentProps={{
+                       type: DialogType.close,
+                       title: 'DELETE',
+                       subText: 'Are you sure you want to delete this item?',
+                    }}
+                    modalProps={{
+                       isBlocking: false
+                    }}
+                    onDismiss={this.close.bind(this)} 
+                > 
+                <DialogFooter> 
+                    <DefaultButton text="No" onClick={() => {this.close() }} />
+                    {/* <PrimaryButton  onClick={() =>{this.removeItem(todo.id)}}>OK</PrimaryButton>  */}
+                    <PrimaryButton text="OK" onClick={() => {this.removeItem(todo.id) }} />  
+                </DialogFooter> 
+                </Dialog> 
+                </TodoRemover> : null }
+            </div>   
         );
         return todosItems;
     }

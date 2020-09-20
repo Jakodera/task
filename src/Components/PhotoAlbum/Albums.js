@@ -18,7 +18,7 @@ class Albums extends React.Component {
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!Loaded) {
-      return <div>Loading...</div>;
+      return <div>Api Call Failed Sorry: Network Error</div>;
     } else {
       return (
         <ul>

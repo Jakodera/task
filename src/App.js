@@ -85,7 +85,7 @@ class App extends Component {
   };
   render () {
     const {todos }=this.state;
-    const sortedTodos=_.orderBy(todos,['id'],['desc'])
+    const sortedTodos=_.orderBy(todos,['index'],['desc'])
     
     return(
       <Router>

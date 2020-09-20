@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux';
 import { FETCH_TODOS_REQUEST, MARK_TODO_AS_COMPLETED_REQUEST, REMOVE_ITEM_REQUEST } from '../Actions/Actions'
 import { THEME_BG_COLOR, THEME_COMPLETED_FONT_COLOR} from '../Pages/Styles';
 import PropTypes from 'prop-types';
-import { IconButton, Dialog, DialogFooter, DefaultButton} from '@fluentui/react';
+import { IconButton} from '@fluentui/react';
 
 
 const Todo = styled.div`
@@ -43,6 +43,7 @@ const InformationContainer = styled.h1`
 
 class Todos extends React.Component {
 
+
     componentDidMount() {
        this.props.dispatch({type: FETCH_TODOS_REQUEST})
     };
@@ -53,31 +54,31 @@ class Todos extends React.Component {
     };
 
 
-    removeItem = (id) => {
-        const [openDeleteModal, setOpenModal] = useState(true); 
-        setOpenModal(true);   
+    removeItem = (id) => { 
         this.props.dispatch({type: REMOVE_ITEM_REQUEST, id});
     };
-
 
     generateTodos = (time) => {
         const dataItems = this.props.todosList;
         const todosItems = dataItems.map((todo, index) => 
             <div key={ index + "todo-container"} style={{marginTop: 2, display: "flex"}}>
 
-                <Todo tabIndex="0" key={ index - "todo"} onClick={ e => { e.preventDefault(); this.mark(todo.id) }}>
+                <Todo  key={ index + "todo"} onClick={ e => { e.preventDefault(); this.mark(todo.id) }}>
 
                     <TodoNumber>{index +1 }.</TodoNumber>
 
                     <TodoTitle color={getFontStyles(todo.completed)}>{todo.title}</TodoTitle>
-                    {time|| new Date().toLocaleString()}
+                    {time|| " "}
 
                     { todo.completed }
 
                 </Todo>
-                { todo.completed ? <TodoRemover onClick={ e => this.removeItem(todo.id) } tabIndex="0">
-                    <IconButton iconProps={{iconName: 'trash'}} onClick={() => {  }}/> 
-
+                { todo.completed ? <TodoRemover>
+                    <IconButton 
+                        iconProps={{iconName: 'trash', style: {color: "red"}}} 
+                        onClick={() => {
+                            window.confirm("Are you sure you want to DELETE this item?")  
+                            this.removeItem(todo.id) }}/> 
                     </TodoRemover> : null }
             </div>
 
@@ -86,11 +87,11 @@ class Todos extends React.Component {
         return todosItems;
     }
 
-    RenderTodos = (time) => {
+    RenderTodos = () => {
         if (this.props.todosLoading) {
             return <InformationContainer>Loading</InformationContainer>
         } else {
-            return this.props.callApiFailed ? <InformationContainer>Api Call Failed Sorry: {this.props.todosList}</InformationContainer> : this.generateTodos();
+            return this.props.callApiFailed ? <InformationContainer>Api Call Failed Sorry: {this.props.todosList}</InformationContainer> : this.generateTodos(new Date().toLocaleString());
         }
     }
 
@@ -103,6 +104,8 @@ class Todos extends React.Component {
         );
     }
 }
+
+
 
 Todos.propTypes = {
     callApiFailed: PropTypes.bool.isRequired,

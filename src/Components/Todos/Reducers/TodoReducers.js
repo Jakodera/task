@@ -1,6 +1,6 @@
 import { FETCH_TODOS_SUCCEEDED, FETCH_TODOS_FAILED, MARK_TODO_AS_COMPLETED_SUCCEEDED, REMOVE_ITEM_SUCCEEDED, SET_NEW_TODO_TITLE_SUCCEEDED, ADD_TODO_SUCCEEDED } from '../Actions/Actions';
 
-//if more reduders should export
+
 const initialState = {
   todosList: null,
   callApiFailed: false,

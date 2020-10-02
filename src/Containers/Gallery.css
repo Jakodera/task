@@ -1,0 +1,28 @@
+.bodyContainer {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    float:left;
+}
+
+.leftContainer {
+    float: left;
+    width: 50%;
+}
+
+.rightContainer {
+    width:calc(50%);
+    float: left;
+}
+
+.middle-view {
+    width: 70%;
+    float: left;
+    background-color: blueviolet;
+}
+
+.right-view {
+    width: 30%;
+    float: left;
+    background-color: burlywood;
+}

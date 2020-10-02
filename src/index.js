@@ -1,24 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+// import './Containers/';
+import App from './Containers/App';
 import createSagaMiddleware from 'redux-saga';
-import RootSaga from './Components/Todos/Sagas/Saga';
-import { createStore, applyMiddleware, compose} from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './Components/Todos/Reducers/Reducers';
+// import rootReducer from './Store/Reducers';
 import { Fabric, initializeIcons } from "@fluentui/react"; 
+
+import mySaga from './Sagas/rootSaga'
+import todoReducer from './Store/Reducers/TodoReducers';
+import homeReducer from './Store/Reducers/homeReducer';
+import galleryReducer from './Store/Reducers/galleryReducer'
+import logger from 'redux-logger';
 
 initializeIcons();
 
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
+
+const rootReducer = combineReducers({
+  todoReducer,
+  homeReducer,
+  galleryReducer
+});
+
+const middlewares = [sagaMiddleware];
+
+if (process.env.NODE_ENV === "development") {
+  middlewares.push(logger);
+}
+
+
 
 const store = createStore(
-  reducer,
+  rootReducer,
   compose(
-  applyMiddleware(sagaMiddleware),
+  applyMiddleware(...middlewares),
 ))
-sagaMiddleware.run(RootSaga)
+sagaMiddleware.run(mySaga)
 
 ReactDOM.render(
   <React.StrictMode>

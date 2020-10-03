@@ -10,6 +10,7 @@ import Home from './Home';
 //      Others
 import { Stack,} from "@fluentui/react"; 
 import Header from '../Layouts/Header';
+// import Pagination from 'office-ui-fabric-react-pagination';
 
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
   };
   render () {
     return( 
+      
       <Router>
       <div className="App">
 
@@ -34,6 +36,11 @@ class App extends Component {
           <Route path="/photos" exact component={Gallery} />
           <Redirect exact from="/" to="/home" />
         </Switch>
+
+        {/* <Pagination
+        currentPage={1}
+        totalPages={10}
+        onChange={{}}/> */}
      
     </div>
     </Stack>

@@ -47,6 +47,8 @@ export default function todosReducer(state = initialState, action) {
             })
           }
         case DELETE_TODO_SUCCESS:
+          console.log({id: action.id});
+          
           return {
             ...state,
             todosList: state.todosList.filter(todo => todo.id !== action.id),
@@ -56,7 +58,7 @@ export default function todosReducer(state = initialState, action) {
             ...state,
             newTodoTitle: action.title
           }
-        case ADD_TODO:
+        case ADD_TODO:          
           return {
             ...state,
             todosList: [

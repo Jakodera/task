@@ -38,12 +38,12 @@ function* addTodo() {
 }
 
 function* setInputValue(action) {
-    yield put({ type: SET_NEW_TODO_TITLE_REQUEST, title: action.title || '' });
+    // yield put({ type: SET_NEW_TODO_TITLE_REQUEST, title: action.title || '' });
 }
 
 function* observeIfTitleShouldBeChanged() {
-    yield takeEvery(ADD_TODO_SUCCESS, setInputValue);
-    yield takeEvery(SET_NEW_TODO_TITLE_REQUEST, setInputValue);
+    // yield takeEvery(ADD_TODO_SUCCESS, setInputValue);
+    // yield takeEvery(SET_NEW_TODO_TITLE_REQUEST, setInputValue);
 }
 
 function* observeCallApiAction() {

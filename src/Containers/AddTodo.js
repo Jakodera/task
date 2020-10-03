@@ -14,13 +14,14 @@ class AddTodo extends React.Component {
     addTodo = () => {
         console.log({title: this.state.title});
         const todo = {userId: 20, id: 21, title: this.state.title, completed: false}
-        this.props.dispatch({ type: ADD_TODO, todo });      
+        this.props.addTodo(todo); 
+        this.setState({ title: '' });     
     }
 
     render() {
-        return (
+        return ( 
             <div>
-                <Stack >
+                <Stack>
                     <TextField
                      onChange={({ target }) => this.setState({title: target.value})} 
                      value={this.state.title}
@@ -44,4 +45,7 @@ const mapStateToProps = state => ({
     newTodoTitle: state.todoReducer.newTodoTitle
 });
 
-export default connect(mapStateToProps)(AddTodo);
+const mapDispatchToProps = (dispatch) => ({
+    addTodo: (todo) => dispatch({type: ADD_TODO, todo})
+})
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);

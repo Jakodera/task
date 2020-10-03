@@ -1,6 +1,6 @@
 import { all, fork, call, put, takeLatest, takeEvery } from 'redux-saga/effects'
 import { FETCH_ALL, MARK_TODO_AS_COMPLETED_REQUEST, MARK_TODO_AS_COMPLETED_REQUEST_SUCCESS, 
-DELETE_TODO, DELETE_TODO_SUCCESS, ADD_TODO, ADD_TODO_SUCCESS, SET_NEW_TODO_TITLE_REQUEST } from '../Store/Actions/actionTypes';
+DELETE_TODO, DELETE_TODO_SUCCESS, ADD_TODO, ADD_TODO_SUCCESS } from '../Store/Actions/actionTypes';
 import axios from 'axios'
 import {fetchAllSuccess} from '../Store/Actions/TodoActions.js'
 
@@ -37,9 +37,9 @@ function* addTodo() {
     yield put({ type: ADD_TODO_SUCCESS });
 }
 
-function* setInputValue(action) {
-    // yield put({ type: SET_NEW_TODO_TITLE_REQUEST, title: action.title || '' });
-}
+// function* setInputValue(action) {
+//     // yield put({ type: SET_NEW_TODO_TITLE_REQUEST, title: action.title || '' });
+// }
 
 function* observeIfTitleShouldBeChanged() {
     // yield takeEvery(ADD_TODO_SUCCESS, setInputValue);

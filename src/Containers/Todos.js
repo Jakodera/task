@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux';
-import { FETCH_ALL, MARK_TODO_AS_COMPLETED_REQUEST, DELETE_TODO } from '../Store/Actions/actionTypes'
+import { FETCH_ALL, MARK_TODO_AS_COMPLETED_REQUEST, DELETE_TODO, DELETE_TODO_SUCCESS } from '../Store/Actions/actionTypes'
 import { THEME_BG_COLOR, THEME_COMPLETED_FONT_COLOR} from './Styles';
 import PropTypes from 'prop-types';
 import { IconButton, Dialog, DialogType, DialogFooter, PrimaryButton, DefaultButton} from '@fluentui/react';
@@ -53,7 +53,7 @@ class Todos extends React.Component {
 
       open = () => this.setState({isOpen: true }) 
 
-      close = () => this.setState({isOpen: false}) 
+      close = () => this.setState({isOpen: false});
 
 
     componentDidMount() {
@@ -66,20 +66,22 @@ class Todos extends React.Component {
     };
 
 
-    removeItem = (id) => { 
-        this.props.dispatch({type: DELETE_TODO, id});
+    removeItem = (id) => {   
+        console.log('Todo ID', id);
+              
+        this.props.dispatch({type: DELETE_TODO_SUCCESS, id});
+        this.setState({isOpen: false});
     };
 
     generateTodos = (time) => {
-        const dataItems = this.props.todosList||[];
-        // console.log({dataItems});
+        const dataItems = this.props.todosList||[]; //providing a fallback while todosList is being loaded
         
         const todosItems = dataItems.map((todo, index) => 
             <div key={ index + "todo-container"} style={{marginTop: 2, display: "flex"}}>
 
                 <Todo  key={ index + "todo"} onClick={ e => { e.preventDefault(); this.mark(todo.id) }}>
 
-                    <TodoNumber>{index +1 }.</TodoNumber>
+                    <TodoNumber>{index + 1}.</TodoNumber>
 
                     <TodoTitle color={getFontStyles(todo.completed)}>{todo.title}</TodoTitle>
                     {time|| " "}

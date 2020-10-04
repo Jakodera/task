@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux';
-import { FETCH_ALL, MARK_TODO_AS_COMPLETED_REQUEST, DELETE_TODO, DELETE_TODO_SUCCESS } from '../Store/Actions/actionTypes'
+import { FETCH_ALL, MARK_TODO_AS_COMPLETED_REQUEST, DELETE_TODO_SUCCESS } from '../Store/Actions/actionTypes'
 import { THEME_BG_COLOR, THEME_COMPLETED_FONT_COLOR} from './Styles';
 import PropTypes from 'prop-types';
 import { IconButton, Dialog, DialogType, DialogFooter, PrimaryButton, DefaultButton} from '@fluentui/react';
@@ -13,7 +13,6 @@ const Todo = styled.div`
     align-items: center;
     padding: 1rem;
     border-radius: 1rem;
-    background-color: ${THEME_BG_COLOR};
     flex-basis: 100%;
 `;
 
@@ -67,17 +66,16 @@ class Todos extends React.Component {
 
 
     removeItem = (id) => {   
-        console.log('Todo ID', id);
-              
         this.props.dispatch({type: DELETE_TODO_SUCCESS, id});
         this.setState({isOpen: false});
     };
 
     generateTodos = (time) => {
-        const dataItems = this.props.todosList||[]; //providing a fallback while todosList is being loaded
+        const dataItems = this.props.todosList||[]; 
         
         const todosItems = dataItems.map((todo, index) => 
-            <div key={ index + "todo-container"} style={{marginTop: 2, display: "flex"}}>
+            <div key={ index + "todo-container"} 
+            style={{marginTop: 2, border: '1px solid', display: "flex", padding: '10px', margin: '10px'}}>
 
                 <Todo  key={ index + "todo"} onClick={ e => { e.preventDefault(); this.mark(todo.id) }}>
 
@@ -127,12 +125,11 @@ class Todos extends React.Component {
     }
 
     render() {
-        // console.log(this.props, "PROPS");
-        // const {todos} = this.props;
-        // console.log(todos, "TODOS");
         return(
             <div>
-         <div style={{ display: 'inline-block', border: '2px solid', width: '400px'}}>
+         <div 
+         style={{ display: 'inline-block', border: '2px solid', width: '400px'}}
+         >
           <p style={{ textAlign: 'center', color: 'blue' }}>List of Todos</p>
                 <AddTodo/>
                 { this.RenderTodos()}

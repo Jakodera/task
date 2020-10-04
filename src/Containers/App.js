@@ -8,7 +8,7 @@ import Todos from './Todos'
 import Home from './Home';
 // import AddTodos from './AddTodo'
 //      Others
-import { Stack,} from "@fluentui/react"; 
+import { Stack} from "@fluentui/react"; 
 import Header from '../Layouts/Header';
 // import Pagination from 'office-ui-fabric-react-pagination';
 
@@ -29,6 +29,7 @@ class App extends Component {
       <Stack horizontalAlign="center"> 
       <div className= "Container">
         <Header/>
+
 
         <Switch>
           <Route path="/home" exact component={Home} />

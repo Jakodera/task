@@ -40,11 +40,8 @@ class Home extends Component {
 
     return (
       <div style={{ textAlign: 'center' }}>
-        {/* <p>Home</p> */}
-        {/* <button type="submit" onClick={this.buttonClicked}>Fetch</button> */}
         <div style={{ display: 'inline-block', border: '2px solid', width: '400px'}}>
           <p style={{ textAlign: 'center', color: 'blue' }}>List of Albums</p>
-          {this.renderTodos}
           {mappedItems}
         </div>
        </div>

@@ -37,11 +37,6 @@ class App extends Component {
           <Route path="/photos" exact component={Gallery} />
           <Redirect exact from="/" to="/home" />
         </Switch>
-
-        {/* <Pagination
-        currentPage={1}
-        totalPages={10}
-        onChange={{}}/> */}
      
     </div>
     </Stack>

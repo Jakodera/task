@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
     <header style={headerStyle}>
-      <h1>Todo, Gallery Redux Saga App</h1>
-      <Link style={linkStyle} to="/">Album</Link>   |
+      <h1>Todo, Gallery  App</h1>
+      <Link style={linkStyle} to="/">Albums</Link>   |
       <Link style={linkStyle} to="/Todos">Todo</Link>
     </header>
   )

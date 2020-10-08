@@ -1,6 +1,5 @@
 export const FETCH_ALL = 'FETCH_ALL'
 export const FETCH_ALL_SUCCESS = 'FETCH_ALL_SUCCESS'
-// export const FETCH = 'FETCH'
 export const ADD_TODO = 'ADD_TODO'
 export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS'
 export const MARK_TODO_AS_COMPLETED_REQUEST = 'MARK_TODO_AS_COMPLETED_REQUEST'

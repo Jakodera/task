@@ -8,6 +8,5 @@ export default function* rootSaga() {
     todoSaga(),
     albumSaga(),
     photoSaga()
-    // add other watchers to the array
   ]);
 }

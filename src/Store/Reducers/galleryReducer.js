@@ -2,20 +2,16 @@ import * as actionTypes from '../Actions/actionTypes';
 
 const initialState = {
   photos: [],
-  // thumbnails: [],
-  // queryId: null,
   chosenPhoto: null
 };
 
 const fetchPhotos = (state) => {
-  // console.log(`id is : ${action.payload.albumId}`);
   return {
     ...state
   };
 };
 
 const fps = (state, action) => {
-  // console.log(`phtodata is : ${action.payload.photos}`);
   console.log(action.payload.photos);
   return {
     ...state,

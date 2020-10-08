@@ -36,7 +36,6 @@ class Gallery extends React.Component {
     const {
       photos,
       chosenPhoto,
-      // albumTitle,
       albumLinks,
       location
     } = this.props;
@@ -79,15 +78,12 @@ const mapStateToProps = (state) => {
     chosenPhoto: state.galleryReducer.chosenPhoto,
     photos: state.galleryReducer.photos,
     thumbnails: state.galleryReducer.thumbnails,
-    // albumTitle: state.homeReducer.albumTitle,
     albumLinks: state.homeReducer.albumLinks
-    // albumId: state.galleryReducer.albumId
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // onSomeButtonClicked: (albumId) => dispatch(homeActions.someButtonClicked(albumId)),
     loadPhotos: (albumId) => dispatch(galleryActions.loadPhotos(albumId)),
     resetId: () => dispatch(galleryActions.resetId()),
     setPhoto: (id) => dispatch(galleryActions.setPhoto(id)),

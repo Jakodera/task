@@ -8,8 +8,7 @@ import * as actionTypes from '../Store/Actions/actionTypes';
 import { albumsFetchSucceded, albumsFetchFailed } from '../Store/Actions/homeActions';
 
 function fetchDataAlbums() {
-  console.log('fetching...');
-  return axios.get('https://jsonplaceholder.typicode.com/albums')
+  return axios.get('https://jsonplaceholder.typicode.com/albums?_limit=10')
     .then((response) => {
       console.log('in axios');
       return { response };
@@ -19,7 +18,6 @@ function fetchDataAlbums() {
     });
 }
 
-// worker Saga: will be fired on FETCH_ALBUMS actions
 function* fetchAlbums() {
   try {
     const { response, error } = yield call(fetchDataAlbums);
@@ -36,13 +34,8 @@ function* fetchAlbums() {
     }
   } catch (e) {
     console.log(e);
-    // yield put({ type: 'FETCH_ALBUMS_FAILED', payload: { message: e.message } });
   }
 }
-/*
-  Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
-  Allows concurrent fetches of user.
-*/
 export function* albumSaga() {
   // yield takeEvery('FETCH_ALBUMS', fetchAlbums);
   yield takeLatest(actionTypes.FETCH_ALBUMS, fetchAlbums);

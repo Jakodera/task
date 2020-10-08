@@ -37,9 +37,6 @@ function* addTodo() {
     yield put({ type: ADD_TODO_SUCCESS });
 }
 
-// function* setInputValue(action) {
-//     // yield put({ type: SET_NEW_TODO_TITLE_REQUEST, title: action.title || '' });
-// }
 
 function* observeIfTitleShouldBeChanged() {
     // yield takeEvery(ADD_TODO_SUCCESS, setInputValue);

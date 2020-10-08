@@ -6,7 +6,7 @@ import {fetchAllSuccess} from '../Store/Actions/TodoActions.js'
 
 function getJsonplaceholderData(id) {
     console.log('fetching...');
-    return axios.get('https://jsonplaceholder.typicode.com/todos/?_limit=10')
+    return axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
       .then((response) => {
         return { response };
         // return res.data;

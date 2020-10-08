@@ -6,7 +6,7 @@ import { THEME_BG_COLOR, THEME_COMPLETED_FONT_COLOR} from './Styles';
 import PropTypes from 'prop-types';
 import { IconButton, Dialog, DialogType, DialogFooter, PrimaryButton, DefaultButton} from '@fluentui/react';
 import AddTodo from './AddTodo.js';
-
+import Paginator from 'react-js-paginator';
 
 const Todo = styled.div`
     display: flex;
@@ -47,9 +47,10 @@ class Todos extends React.Component {
         super() 
         this.state = { 
           isOpen: false, 
+          currentPage: 1
+
         } 
       }
-
       open = () => this.setState({isOpen: true }) 
 
       close = () => this.setState({isOpen: false});
@@ -133,14 +134,25 @@ class Todos extends React.Component {
           <p style={{ textAlign: 'center', color: 'blue' }}>List of Todos</p>
                 <AddTodo/>
                 { this.RenderTodos()}
+        <Paginator
+          pageSize={20}
+          totalElements={200}
+          maxPagesToDisplay={5}
+          onPageChangeCallback={(e) => {this.pageChange(e)}}
+          pageBoxStyle={{border: 0, color: 'black', padding: 3, fontSize: 16}}
+          activePageBoxStyle={{fontWeight: 'bolder', color: 'green', backgroundColor: '#d7f7dc'}}
+          firstArrowAlwaysVisible
+          lastArrowAlwaysVisible
+        />
                 </div> 
     
             </div>
         );
     }
+    pageChange(todo){
+        this.setState({currentPage: todo})
+    }   
 }
-
-
 
 Todos.propTypes = {
     // callApiFailed: PropTypes.bool.isRequired,
@@ -158,18 +170,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Todos);
-
-
-
-
-
-
-
-
-
-
-
-/* <ul> */
-/* <Todos/> */
-/* {todosList?.map((todo) =><li key={todo.id}>{todo.title}</li>)} */
-// </ul> 
